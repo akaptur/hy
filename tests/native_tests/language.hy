@@ -241,6 +241,11 @@
   (except [ValueError])
   (else (assert false))))
 
+(defn test-raise-cause []
+  (try (raise ValueError :from NameError)
+  (except [e [ValueError]]
+    (assert (= (type (. e __cause__)) NameError)))))
+
 
 (defn test-exceptions []
   "NATIVE: test Exceptions"

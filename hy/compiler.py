@@ -665,12 +665,18 @@ class HyASTCompiler(object):
 
     @builds("throw")
     @builds("raise")
-    @checkargs(max=1)
+    @checkargs(max=3)
     def compile_throw_expression(self, expr):
         expr.pop(0)
         ret = Result()
+        length = len(expr)
         if expr:
             ret += self.compile(expr.pop(0))
+
+        cause = None
+        if PY3:
+            if length == 3 and expr[0] == HyKeyword(":from"):
+                cause = self.compile(expr[1]) #something about lineno here
 
         # Use ret.expr to get a literal `None`
         ret += ast.Raise(
@@ -680,7 +686,7 @@ class HyASTCompiler(object):
             exc=ret.expr,
             inst=None,
             tback=None,
-            cause=None)
+            cause=cause)
 
         return ret
 
