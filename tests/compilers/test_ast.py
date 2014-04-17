@@ -27,10 +27,9 @@ from hy.compiler import hy_compile
 from hy.errors import HyCompileError, HyTypeError
 from hy.lex.exceptions import LexException
 from hy.lex import tokenize
+from hy._compat import PY3
 
 import ast
-import sys
-PY3 = sys.version_info > (3,)
 
 
 def _ast_spotcheck(arg, root, secondary):

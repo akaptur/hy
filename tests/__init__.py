@@ -1,8 +1,6 @@
-import sys
-PY3 = sys.version_info > (3,)
-
 
 import hy  # noqa
+from hy._compat import PY3
 from .native_tests.cons import *  # noqa
 from .native_tests.defclass import *  # noqa
 from .native_tests.math import *  # noqa
