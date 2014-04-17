@@ -128,7 +128,7 @@ def test_ast_good_raise():
 
 if PY3:
     def test_ast_raise_from():
-        can_compile("(raise Exception :from NameError")
+        can_compile("(raise Exception :from NameError)")
 
 def test_ast_bad_raise():
     "Make sure AST can't compile invalid raise"
