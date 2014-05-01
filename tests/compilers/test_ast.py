@@ -117,7 +117,7 @@ def test_ast_good_throw():
 
 def test_ast_bad_throw():
     "Make sure AST can't compile invalid throw"
-    cant_compile("(throw 1 2)")
+    cant_compile("(throw Exception Exception)")
 
 
 def test_ast_good_raise():
@@ -126,9 +126,11 @@ def test_ast_good_raise():
     can_compile("(raise Exception)")
     can_compile("(raise e)")
 
+
 if PY3:
     def test_ast_raise_from():
         can_compile("(raise Exception :from NameError)")
+
 
 def test_ast_bad_raise():
     "Make sure AST can't compile invalid raise"

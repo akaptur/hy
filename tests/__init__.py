@@ -21,4 +21,4 @@ from .native_tests.contrib.multi import *  # noqa
 from .native_tests.contrib.curry import *  # noqa
 
 if PY3:
-    from .native_tests.py3_only_tests import *
+    from .native_tests.py3_only_tests import *  # noqa

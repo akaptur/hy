@@ -672,7 +672,7 @@ class HyASTCompiler(object):
 
     @builds("throw")
     @builds("raise")
-    @checkargs(multiple=[0,1,3])
+    @checkargs(multiple=[0, 1, 3])
     def compile_throw_expression(self, expr):
         expr.pop(0)
         ret = Result()
@@ -747,9 +747,9 @@ class HyASTCompiler(object):
                 handler_results += self._compile_catch_expression(e, name)
                 handlers.append(handler_results.stmts.pop())
             elif e[0] == HySymbol("else"):
-                orelse = self.try_except_helper(e, HySymbol("else"), orelse)
+                orelse = self.try_helper(e, HySymbol("else"), orelse)
             elif e[0] == HySymbol("finally"):
-                finalbody = self.try_except_helper(e, HySymbol("finally"), finalbody)
+                finalbody = self.try_helper(e, HySymbol("finally"), finalbody)
             else:
                 raise HyTypeError(e, "Unknown expression in `try'")
 
@@ -768,7 +768,7 @@ class HyASTCompiler(object):
                 type=None,
                 name=None,
                 body=[ast.Raise(lineno=expr.start_line,
-                               col_offset=expr.start_column)])]
+                                col_offset=expr.start_column)])]
 
         ret = handler_results
 
@@ -808,7 +808,7 @@ class HyASTCompiler(object):
             body=body,
             orelse=orelse) + returnable
 
-    def try_except_helper(self, hy_obj, symbol, accumulated):
+    def try_helper(self, hy_obj, symbol, accumulated):
         if accumulated:
             raise HyTypeError(
                 hy_obj,
@@ -818,7 +818,6 @@ class HyASTCompiler(object):
             accumulated += accumulated.expr_as_stmt()
             accumulated = accumulated.stmts
         return accumulated
-
 
     @builds("except")
     @builds("catch")
