@@ -683,7 +683,9 @@ class HyASTCompiler(object):
         if PY3:
             if len(expr) == 2:
                 if expr[0] == HyKeyword(":from"):
-                    cause = self.compile(expr[1])
+                    expr.pop(0)
+                    cause = self.compile(expr.pop(0))
+                    cause = cause.expr
 
         # Use ret.expr to get a literal `None`
         ret += ast.Raise(
